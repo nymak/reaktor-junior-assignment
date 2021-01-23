@@ -1,6 +1,7 @@
 import xmltodict
 import json
 import logging
+# TODO: import logging from logger
 
 def parse_stock(data):
     try:

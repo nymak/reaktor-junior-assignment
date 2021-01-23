@@ -1,20 +1,8 @@
 import asyncio
 import requests
-import logging
 from manufacturer import Manufacturer
-from aiohttp import ClientSession, TraceConfig
-
-
-async def on_request_start(session, context, params):
-    logging.getLogger('aiohttp.client').debug(f'Starting request <{params}>')
-
-
-logging.basicConfig(level=logging.DEBUG)
-trace_config = TraceConfig()
-trace_config.on_request_start.append(on_request_start)
-
-categories = ["gloves", "facemasks", "beanies"]
-
+from aiohttp import ClientSession
+from logger import trace_config
 
 class Category:
 
