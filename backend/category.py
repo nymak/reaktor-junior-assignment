@@ -1,8 +1,17 @@
 import asyncio
-
-from manufacturer import Manufacturer
 import requests
-from aiohttp import ClientSession
+import logging
+from manufacturer import Manufacturer
+from aiohttp import ClientSession, TraceConfig
+
+
+async def on_request_start(session, context, params):
+    logging.getLogger('aiohttp.client').debug(f'Starting request <{params}>')
+
+
+logging.basicConfig(level=logging.DEBUG)
+trace_config = TraceConfig()
+trace_config.on_request_start.append(on_request_start)
 
 categories = ["gloves", "facemasks", "beanies"]
 
@@ -18,25 +27,37 @@ class Category:
     async def update(self):
         res = requests.get(f"https://bad-api-assignment.reaktor.com/v2/products/{self.name}")
         self.data = res.json()
-        for x in self.data:
-            self.manufacturers.add(Manufacturer(x["manufacturer"]))
+        for prod in self.data:
+            self.manufacturers.add(Manufacturer(prod["manufacturer"]))
 
-        async with ClientSession() as s:
+        async with ClientSession(trace_configs=[trace_config]) as s:
+            await asyncio.gather(*[man.get_stock_data(s) for man in self.manufacturers])
+
+        for prod in self.data:
+            id = prod["id"]
+            instock = ""
             for man in self.manufacturers:
-                await man.get_stock_data(s)
+                instock = man.data.get(id, "NOT_FOUND")
+                if instock != "NOT_FOUND":
+                    break
+
+            self.products.append(Product(
+                prod["id"],
+                prod["type"],
+                prod["name"],
+                prod["color"],
+                prod["price"],
+                prod["manufacturer"],
+                instock
+            ))
 
 
 class Product(Category):
-    in_stock = ""
-
-    def __init__(self, prod_id: str, category: str, name: str, color, price: str, manufacturer: str):
+    def __init__(self, prod_id: str, category: str, name: str, color, price: str, manufacturer: str, in_stock: str):
         self.type = category
         self.name = name
         self.color = color
         self.price = price
         self.manufacturer = manufacturer
         self.id = prod_id
-
-
-
-
+        self.in_stock = in_stock
