@@ -1,5 +1,8 @@
+import asyncio
+
 from manufacturer import Manufacturer
 import requests
+from aiohttp import ClientSession
 
 categories = ["gloves", "facemasks", "beanies"]
 
@@ -11,15 +14,16 @@ class Category:
         self.data: list = []
         self.manufacturers: set = set()
         self.products: list = []
-        self.update()
 
-    def update(self):
+    async def update(self):
         res = requests.get(f"https://bad-api-assignment.reaktor.com/v2/products/{self.name}")
         self.data = res.json()
         for x in self.data:
             self.manufacturers.add(Manufacturer(x["manufacturer"]))
-            self.products.append(Product(x["id"], self.name, x["name"], x["color"], x["price"], x["manufacturer"]))
 
+        async with ClientSession() as s:
+            for man in self.manufacturers:
+                await man.get_stock_data(s)
 
 
 class Product(Category):

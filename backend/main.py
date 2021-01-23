@@ -2,10 +2,10 @@ from category import Category
 import asyncio
 
 
-def main():
+async def main():
     categories = [Category('gloves'), Category('facemasks'), Category('beanies')]
     for category in categories:
-        category.update()
+        await category.update()
 
 
-main()
+asyncio.run(main())
