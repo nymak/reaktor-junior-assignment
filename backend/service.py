@@ -9,5 +9,4 @@ async def updateCategory(category):
         await category.update()
 
         sleepTime = (4*60)-(time.time()-t0)
-        logging.debug(sleepTime)
         time.sleep(sleepTime)

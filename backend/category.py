@@ -19,12 +19,14 @@ class Category:
             self.manufacturers.add(Manufacturer(prod["manufacturer"]))
 
         async with ClientSession(trace_configs=[trace_config]) as s:
-            await asyncio.gather(*[man.get_stock_data(s) for man in self.manufacturers])
+            await asyncio.gather(*[man.get_stock_data(s, 0) for man in self.manufacturers])
 
         for prod in self.data:
             id = prod["id"]
             instock = ""
             for man in self.manufacturers:
+                if not man.data:
+                    break
                 instock = man.data.get(id, "NOT_FOUND")
                 if instock != "NOT_FOUND":
                     break
