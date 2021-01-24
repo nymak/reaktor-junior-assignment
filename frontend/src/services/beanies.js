@@ -2,8 +2,13 @@ import axios from 'axios'
 
 const url = "/api/beanies"
 
-export const get = async () => {
+const get50 = async () => {
     const res = await axios.get(url)
-    console.log(res)
+    return res.data
 }
 
+const beanieService = {
+    get50
+}
+
+export default beanieService

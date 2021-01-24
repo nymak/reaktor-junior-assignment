@@ -1,23 +1,24 @@
 import './App.css';
-import { useState, useEffect } from 'react'
-import { get } from './services/gloves'
+import React, { useEffect } from 'react'
+import { initGloves } from "./reducers/gloveReducer";
+import { useDispatch } from "react-redux";
+import Gloves from "./components/Gloves";
+import Chooser from "./components/Chooser";
+
 
 const App = () => {
-  const [beanies, setBeanies] = useState({})
-  const [facemasks, setFacemasks] = useState({})
-  const [gloves, setGloves] = useState({})
-
+    const dispatch = useDispatch()
     useEffect(() => {
-        get().then(res =>
-            console.log(res)
-        )
-    }, [])
+        dispatch(initGloves())
+    }, [dispatch])
 
 
   return (
-
-      <div className="App">
-          <p>Sivu</p>
+      <div>
+          <h1>Product tracker</h1>
+          <Chooser />
+          <h2>Gloves</h2>
+          <Gloves />
       </div>
   )
 }

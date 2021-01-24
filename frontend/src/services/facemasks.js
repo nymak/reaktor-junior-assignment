@@ -2,8 +2,13 @@ import axios from 'axios'
 
 const url = "/api/facemasks"
 
-export const get = async () => {
+const get50 = async () => {
     const res = await axios.get(url)
-    console.log(res)
+    return res.data
 }
 
+const facemaskService = {
+    get50,
+}
+
+export default facemaskService
