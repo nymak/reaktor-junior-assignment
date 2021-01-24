@@ -3,6 +3,8 @@ import requests
 from manufacturer import Manufacturer
 from aiohttp import ClientSession
 from logger import trace_config
+from operator import attrgetter
+
 
 class Category:
 
@@ -40,6 +42,7 @@ class Category:
                 prod["manufacturer"],
                 instock
             ))
+        self.products.sort(key=attrgetter("name"))
 
 
 class Product(Category):
@@ -51,3 +54,9 @@ class Product(Category):
         self.manufacturer = manufacturer
         self.id = prod_id
         self.in_stock = in_stock
+
+    def __eq__(self, other):
+        return self.name == other.name
+
+    def __hash__(self):
+        return self.name
