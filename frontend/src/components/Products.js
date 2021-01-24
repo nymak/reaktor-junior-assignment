@@ -13,7 +13,7 @@ const Product = ({ product }) => (
 )
 
 const Products = ({ product }) => {
-    const products = useSelector(state => state[product])
+    const products = useSelector(state => state["data"]["data"][product].slice(0, 100))
 
     return (
             <table>
@@ -26,7 +26,7 @@ const Products = ({ product }) => {
                     <td><strong>Type</strong></td>
                     <td><strong>Stock</strong></td>
                 </tr>
-                    {products.data.map(prod =>
+                    {products.map(prod =>
                         <tr key={prod.id}>
                             <Product product={prod} />
                         </tr>

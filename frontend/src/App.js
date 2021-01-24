@@ -1,11 +1,9 @@
 import './App.css';
 import React, { useEffect } from 'react'
-import { initGloves } from "./reducers/gloveReducer";
 import { useDispatch, useSelector } from "react-redux";
 import Chooser from "./components/Chooser";
 import Products from "./components/Products";
-import {initFacemasks} from "./reducers/facemaskReducer";
-import {initBeanies} from "./reducers/beanieReducer";
+import {init, getAll} from "./reducers/dataReducer";
 
 const capitalize = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1)
@@ -15,10 +13,12 @@ const App = () => {
     const choice = useSelector(state => state.choice)
     const dispatch = useDispatch()
 
+    /*useEffect(() => {
+        dispatch(init())
+    }, [dispatch])*/
+
     useEffect(() => {
-        dispatch(initGloves())
-        dispatch(initFacemasks())
-        dispatch(initBeanies())
+        dispatch(getAll())
     }, [dispatch])
 
     return (

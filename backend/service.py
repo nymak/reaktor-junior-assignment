@@ -11,4 +11,5 @@ async def updateCategory(category):
         category.lastUpdate = time.time()
         logging.debug(f"SUCCESSFULLY FETCHED DATA FOR {category.name}")
         sleepTime = (4 * 60) - (time.time() - t0)
+        logging.debug(f"SLEEPING FOR {sleepTime} SECONDS")
         time.sleep(sleepTime)

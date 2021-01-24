@@ -17,7 +17,6 @@ class Category:
         self.products: list = []
 
     async def update(self):
-        self.products = []
         res = requests.get(f"https://bad-api-assignment.reaktor.com/v2/products/{self.name}")
         self.data = res.json()
         for prod in self.data:
@@ -26,6 +25,7 @@ class Category:
         async with ClientSession(trace_configs=[trace_config]) as s:
             await asyncio.gather(*[man.get_stock_data(s, 0) for man in self.manufacturers])
 
+        newProducts = []
         for prod in self.data:
             id = prod["id"]
             instock = ""
@@ -36,7 +36,7 @@ class Category:
                 if instock != "NOT_FOUND":
                     break
 
-            self.products.append(Product(
+            newProducts.append(Product(
                 prod["id"],
                 prod["type"],
                 prod["name"],
@@ -45,7 +45,8 @@ class Category:
                 prod["manufacturer"],
                 instock
             ))
-        self.products.sort(key=attrgetter("name"))
+        newProducts.sort(key=attrgetter("name"))
+        self.products = newProducts
 
 
 class Product(Category):

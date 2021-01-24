@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = "/api/beanies"
+const url = "/api/data/beanies"
 
 const get50 = async () => {
     const res = await axios.get(url)

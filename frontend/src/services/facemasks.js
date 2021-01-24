@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = "/api/facemasks"
+const url = "/api/data/facemasks"
 
 const get50 = async () => {
     const res = await axios.get(url)
