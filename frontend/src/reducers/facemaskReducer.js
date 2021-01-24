@@ -10,7 +10,7 @@ const facemaskReducer = (state = [], action) => {
     }
 }
 
-export const initGloves = () => {
+export const initFacemasks = () => {
     return async dispatch => {
         const data = await facemaskService.get50()
         dispatch({

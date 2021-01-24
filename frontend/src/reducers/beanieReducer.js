@@ -10,7 +10,7 @@ const beanieReducer = (state = [], action) => {
     }
 }
 
-export const initGloves = () => {
+export const initBeanies = () => {
     return async dispatch => {
         const data = await beanieService.get50()
         dispatch({

@@ -2,8 +2,10 @@ import logging
 import http.client
 from aiohttp import TraceConfig
 
+
 async def on_request_start(session, context, params):
     logging.getLogger('aiohttp.client').debug(f'Starting request <{params}>')
+
 
 logging.basicConfig(level=logging.DEBUG)
 trace_config = TraceConfig()
