@@ -1,7 +1,7 @@
 import beanieService from '../services/beanies'
 
 
-const beanieReducer = (state = [], action) => {
+const beanieReducer = (state = {data: []}, action) => {
     switch (action.type) {
         case 'INIT_BEANIE':
             return action.data

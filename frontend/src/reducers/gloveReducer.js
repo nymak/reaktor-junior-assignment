@@ -1,7 +1,7 @@
 import gloveService from '../services/gloves'
 
 
-const gloveReducer = (state = [], action) => {
+const gloveReducer = (state = {data: []}, action) => {
     switch (action.type) {
         case 'INIT_GLOVES':
             return action.data

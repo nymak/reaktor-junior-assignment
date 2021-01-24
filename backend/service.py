@@ -8,6 +8,7 @@ async def updateCategory(category):
         t0 = time.time()
         logging.debug(f"GETTING {category.name.upper()}")
         await category.update()
-        logging.debug("SUCCESSFULLY FETCHED DATA")
+        category.lastUpdate = time.time()
+        logging.debug(f"SUCCESSFULLY FETCHED DATA FOR {category.name}")
         sleepTime = (4 * 60) - (time.time() - t0)
         time.sleep(sleepTime)

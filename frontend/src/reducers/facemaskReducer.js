@@ -1,7 +1,7 @@
 import facemaskService from '../services/facemasks'
 
 
-const facemaskReducer = (state = [], action) => {
+const facemaskReducer = (state = {data: []}, action) => {
     switch (action.type) {
         case 'INIT_MASKS':
             return action.data

@@ -10,14 +10,16 @@ beanies = Category('beanies')
 
 @app.get('/api/gloves')
 def root():
-    return gloves.products[:50]
+    return {"updateTime": gloves.lastUpdate, "data": gloves.products[:50]}
 
 
 @app.get('/api/facemasks')
 def root():
-    return facemasks.products[:50]
+    return {"updateTime": facemasks.lastUpdate, "data": facemasks.products[:50]}
 
 
 @app.get('/api/beanies')
 def root():
-    return beanies.products[:50]
+    return {"updateTime": beanies.lastUpdate, "data": beanies.products[:50]}
+
+

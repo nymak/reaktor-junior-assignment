@@ -8,6 +8,8 @@ from operator import attrgetter
 
 class Category:
 
+    lastUpdate = 0
+
     def __init__(self, name: str):
         self.name: str = name
         self.data: list = []
@@ -15,6 +17,7 @@ class Category:
         self.products: list = []
 
     async def update(self):
+        self.products = []
         res = requests.get(f"https://bad-api-assignment.reaktor.com/v2/products/{self.name}")
         self.data = res.json()
         for prod in self.data:

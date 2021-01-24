@@ -15,16 +15,9 @@ const App = () => {
     const choice = useSelector(state => state.choice)
     const dispatch = useDispatch()
 
-
     useEffect(() => {
         dispatch(initGloves())
-    }, [dispatch])
-
-    useEffect(() => {
         dispatch(initFacemasks())
-    }, [dispatch])
-
-    useEffect(() => {
         dispatch(initBeanies())
     }, [dispatch])
 

@@ -14,6 +14,7 @@ const Product = ({ product }) => (
 
 const Products = ({ product }) => {
     const products = useSelector(state => state[product])
+
     return (
             <table>
                 <tbody>
@@ -25,7 +26,7 @@ const Products = ({ product }) => {
                     <td><strong>Type</strong></td>
                     <td><strong>Stock</strong></td>
                 </tr>
-                    {products.map(prod =>
+                    {products.data.map(prod =>
                         <tr key={prod.id}>
                             <Product product={prod} />
                         </tr>
