@@ -22,13 +22,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Deploy Python app
-      - uses: appleboy/ssh-action@v0.1.4
+        uses: appleboy/ssh-action@v0.1.4
         with: 
           key: ${{secrets.SSH_KEY}}
           host: ${{secrets.SSH_HOST}}
           username: ${{secrests.SSH_USERNAME}}
-      # Runs a set of commands using the runners shell
-          run: |
+          
+          script: |
             cd reaktor-junior-assignment
             git pull
             echo 'Deployment successfull'
