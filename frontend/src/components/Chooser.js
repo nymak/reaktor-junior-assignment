@@ -2,6 +2,7 @@ import React from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import { choose } from "../reducers/chooseReducer";
 import {getAll, init} from "../reducers/dataReducer";
+import {change} from "../reducers/pageReducer";
 
 const Chooser = () => {
     const dispatch = useDispatch()
@@ -11,6 +12,7 @@ const Chooser = () => {
     const prevent = (e) => {
         e.preventDefault()
         dispatch(choose(e.target.name))
+        dispatch(change(1))
         if (new Date()-new Date(lastUpdate*1000) >= 4 * 60000) {
             dispatch(getAll())
         }

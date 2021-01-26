@@ -2,9 +2,9 @@ import dataService from '../services/data'
 
 const initialState = {
     data: {
-        beanies: [],
-        facemasks: [],
-        gloves: []
+        beanies: [[]],
+        facemasks: [[]],
+        gloves: [[]]
     }
 }
 

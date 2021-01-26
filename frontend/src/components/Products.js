@@ -1,5 +1,8 @@
 import React from 'react'
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import pageReducer from "../reducers/pageReducer";
+import Pager from "./Pager";
+
 
 const Product = ({ product }) => (
     <>
@@ -13,9 +16,16 @@ const Product = ({ product }) => (
 )
 
 const Products = ({ product }) => {
-    const products = useSelector(state => state["data"]["data"][product].slice(0, 100))
+    const page = useSelector(state => state.page)
+    const products = useSelector(state => state["data"]["data"][product][page-1])
+    const allProducts = useSelector(state => state["data"]["data"][product].flat())
 
     return (
+        <>
+            <Pager
+                products={allProducts}
+                currentPage={page}
+            />
             <table>
                 <tbody>
                 <tr>
@@ -33,6 +43,7 @@ const Products = ({ product }) => {
                     )}
                 </tbody>
             </table>
+        </>
     )
 }
 

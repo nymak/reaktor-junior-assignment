@@ -2,19 +2,26 @@ import axios from 'axios'
 
 const url = "/api/data"
 
-const getAll = async () => {
-    const res = await axios.get(url)
-    return res.data
+const splitInChunks = (array) => {
+    const n = 50
+    return new Array(Math.ceil(array.length / n))
+        .fill()
+        .map(_ => array.splice(0, n))
 }
 
-const get50 = async () => {
-    const res = await axios.get(`${url}/50`)
-    return res.data
+const getAll = async () => {
+    const res = await axios.get(url)
+    return {
+        ...res.data,
+        data: {
+            beanies: splitInChunks(res.data.data.beanies),
+            gloves: splitInChunks(res.data.data.gloves),
+            facemasks: splitInChunks(res.data.data.facemasks)
+        }}
 }
 
 const dataService = {
-    getAll,
-    get50
+    getAll
 }
 
 export default dataService

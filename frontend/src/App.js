@@ -1,4 +1,4 @@
-import './App.css';
+import './bulmaswatch.min.css';
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import Chooser from "./components/Chooser";
@@ -22,12 +22,15 @@ const App = () => {
     }, [dispatch])
 
     return (
-      <div>
-        <h1>Product tracker</h1>
-        <Chooser />
-        <h2>{capitalize(choice)}</h2>
-        <Products product={choice} />
-      </div>
+
+            <div>
+                <h1>Product tracker</h1>
+                <Chooser />
+                <h2>{capitalize(choice)}</h2>
+                <Products product={choice} />
+            </div>
+
+
     )
 
 }
