@@ -8,6 +8,7 @@ const initialState = {
     }
 }
 
+
 const dataReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'INIT':
@@ -16,15 +17,6 @@ const dataReducer = (state = initialState, action) => {
             return state
     }
 }
-
-export const init = () => (
-    async dispatch => {
-        const data = await dataService.get50()
-        dispatch({
-            type: 'INIT', data
-        })
-    }
-)
 
 
 export const getAll = () => (

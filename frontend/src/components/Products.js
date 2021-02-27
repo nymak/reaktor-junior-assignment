@@ -1,10 +1,9 @@
 import React from 'react'
-import { useSelector, useDispatch } from "react-redux";
-import pageReducer from "../reducers/pageReducer";
+import {useSelector} from "react-redux";
 import Pager from "./Pager";
 
-
-const Product = ({ product }) => (
+// Component for a single product
+const Product = ({product}) => (
     <>
         <td>{product.name}</td>
         <td>{product.color.join(', ')}</td>
@@ -15,10 +14,16 @@ const Product = ({ product }) => (
     </>
 )
 
-const Products = ({ product }) => {
+// Component for all products
+const Products = ({product}) => {
     const page = useSelector(state => state.page)
-    const products = useSelector(state => state["data"]["data"][product][page-1])
+    const products = useSelector(state => state["data"]["data"][product][page - 1])
     const allProducts = useSelector(state => state["data"]["data"][product].flat())
+
+    console.log(products)
+    const style = {
+        width: '100%'
+    }
 
     return (
         <>
@@ -26,21 +31,23 @@ const Products = ({ product }) => {
                 products={allProducts}
                 currentPage={page}
             />
-            <table>
+            <table style={style} className={'table is-striped'}>
+                <thead>
+                    <tr>
+                        <th><strong>Name</strong></th>
+                        <th><strong>Color</strong></th>
+                        <th><strong>Manufacturer</strong></th>
+                        <th><strong>Price</strong></th>
+                        <th><strong>Type</strong></th>
+                        <th><strong>Stock</strong></th>
+                    </tr>
+                </thead>
                 <tbody>
-                <tr>
-                    <td><strong>Name</strong></td>
-                    <td><strong>Color</strong></td>
-                    <td><strong>Manufacturer</strong></td>
-                    <td><strong>Price</strong></td>
-                    <td><strong>Type</strong></td>
-                    <td><strong>Stock</strong></td>
-                </tr>
-                    {products.map(prod =>
-                        <tr key={prod.id}>
-                            <Product product={prod} />
-                        </tr>
-                    )}
+                {products.map(prod =>
+                    <tr key={prod.id}>
+                        <Product product={prod}/>
+                    </tr>
+                )}
                 </tbody>
             </table>
         </>

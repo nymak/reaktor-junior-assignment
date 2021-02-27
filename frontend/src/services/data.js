@@ -2,6 +2,8 @@ import axios from 'axios'
 
 const url = "/api/data"
 
+// Split array into equal chunks
+// Needed for pagination
 const splitInChunks = (array) => {
     const n = 50
     return new Array(Math.ceil(array.length / n))
@@ -9,6 +11,7 @@ const splitInChunks = (array) => {
         .map(_ => array.splice(0, n))
 }
 
+// Calls backends /api/data to get all data
 const getAll = async () => {
     const res = await axios.get(url)
     return {

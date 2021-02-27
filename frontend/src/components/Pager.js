@@ -1,11 +1,12 @@
 import React from 'react'
 import Pagination from 'bulma-pagination-react'
-import { useDispatch } from "react-redux";
+import {useDispatch} from "react-redux";
 import {change} from "../reducers/pageReducer";
 
 const POSTS_PER_PAGE = 50;
 
-const Pager = ({ products, currentPage, perPage = POSTS_PER_PAGE }) => {
+// Component for pagination
+const Pager = ({products, currentPage, perPage = POSTS_PER_PAGE}) => {
     const dispatch = useDispatch()
     const pages = Math.ceil(products.length / POSTS_PER_PAGE)
 

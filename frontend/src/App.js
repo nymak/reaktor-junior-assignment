@@ -1,36 +1,24 @@
 import './bulmaswatch.min.css';
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from "react-redux";
+import React, {useEffect} from 'react'
+import {useDispatch, useSelector} from "react-redux";
 import Chooser from "./components/Chooser";
 import Products from "./components/Products";
-import {init, getAll} from "./reducers/dataReducer";
-
-const capitalize = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1)
-}
+import {getAll} from "./reducers/dataReducer";
 
 const App = () => {
     const choice = useSelector(state => state.choice)
     const dispatch = useDispatch()
-
-    /*useEffect(() => {
-        dispatch(init())
-    }, [dispatch])*/
 
     useEffect(() => {
         dispatch(getAll())
     }, [dispatch])
 
     return (
-
-            <div>
-                <h1>Product tracker</h1>
-                <Chooser />
-                <h2>{capitalize(choice)}</h2>
-                <Products product={choice} />
-            </div>
-
-
+        <div>
+            <h1 className={'title is-1'}>Product tracker</h1>
+            <Chooser product={choice}/>
+            <Products product={choice}/>
+        </div>
     )
 
 }
