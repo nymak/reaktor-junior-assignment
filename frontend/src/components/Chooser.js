@@ -1,10 +1,10 @@
 import React from 'react'
 import {useDispatch, useSelector} from "react-redux";
-import { choose } from "../reducers/chooseReducer";
-import {getAll, init} from "../reducers/dataReducer";
+import {choose} from "../reducers/chooseReducer";
+import {getAll} from "../reducers/dataReducer";
 import {change} from "../reducers/pageReducer";
 
-const Chooser = () => {
+const Chooser = ({product}) => {
     const dispatch = useDispatch()
     const lastUpdate = useSelector(state => state.data.updateTime)
 
@@ -13,7 +13,7 @@ const Chooser = () => {
         e.preventDefault()
         dispatch(choose(e.target.name))
         dispatch(change(1))
-        if (new Date()-new Date(lastUpdate*1000) >= 4 * 60000) {
+        if (new Date() - new Date(lastUpdate * 1000) >= 4 * 60000) {
             dispatch(getAll())
         }
     }
@@ -21,9 +21,9 @@ const Chooser = () => {
     return (
         <div>
             <span>
-                <a href={"/gloves"} onClick={prevent} style={{"marginLeft": "10px"}} name={"gloves"}>Gloves</a>
-                <a href={"/facemasks"} onClick={prevent} style={{"marginLeft": "10px"}} name={"facemasks"}>Facemasks</a>
-                <a href={"/beanies"} onClick={prevent} style={{"marginLeft": "10px"}} name={"beanies"}>Beanies</a>
+                <button onClick={prevent} style={{"marginLeft": "10px"}} name={"gloves"} className={product==='gloves' ? "button is-info is-active" : "button is-primary"}>Gloves</button>
+                <button onClick={prevent} style={{"marginLeft": "10px"}} name={"facemasks"} className={product==='facemasks' ? "button is-info is-active" : "button is-primary"}>Facemasks</button>
+                <button onClick={prevent} style={{"marginLeft": "10px", "marginBottom": "20px"}} name={"beanies"} className={product==='beanies' ? "button is-info is-active" : "button is-primary"}>Beanies</button>
             </span>
         </div>
     )

@@ -1,5 +1,5 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+import {applyMiddleware, combineReducers, createStore} from "redux";
+import {composeWithDevTools} from "redux-devtools-extension";
 import chooseReducer from "./reducers/chooseReducer";
 import thunk from "redux-thunk";
 import dataReducer from "./reducers/dataReducer";
