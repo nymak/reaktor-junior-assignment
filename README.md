@@ -27,3 +27,5 @@ $ npm install
 $ npm start
 ```
 That should automatically open a new tab in your browser. Note that it can take a while for the backend to get the data the first time. But after it has gotten it once it updates it so that you can access it the whole time.
+## Other info
+The backend gets automatically new data for each category every 4-update time minutes. If it exceeds the 5 retries, it will use the old data until the next update. This is a considered decision. I decided to do it this way because when I followed the logs, this never happened. The frontend queries to the backend every 4 minutes.
