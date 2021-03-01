@@ -1,3 +1,4 @@
+from json.decoder import JSONDecodeError
 import xmltodict
 import json
 from logger import logging
@@ -44,7 +45,11 @@ class Manufacturer:
             return
         res = await session.get(f"https://bad-api-assignment.reaktor.com/v2/availability/{self.name}")
         content = await res.text()
-        data = json.loads(content)
+        try:
+            data = json.loads(content)
+        except JSONDecodeError:
+            logging.error(f"FAILED TO PARSE JSON, TRYING AGAIN NUMBER OF TRIES LEFT {n}")
+            await self.get_stock_data(session, n - 1)
         if data["response"] == '[]':
             logging.warning(f"AVAILABILITY RESPONSE EMPTY, TRYING AGAIN NUMBER OF TRIES LEFT {n}")
             await self.get_stock_data(session, n - 1)
