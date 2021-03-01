@@ -16,7 +16,7 @@ $ cd backend
 $ python3 -m venv venv
 $ source venv/bin/activate
 $ pip -r requirements.txt
-$ python3 main.py
+$ python main.py
 ```
 Now the backend is running, and it logs to a file called logs.log.
 ### Frontend
@@ -27,5 +27,11 @@ $ npm install
 $ npm start
 ```
 That should automatically open a new tab in your browser. Note that it can take a while for the backend to get the data the first time. But after it has gotten it once it updates it so that you can access it the whole time.
+## Testing
+I decided to do all testing in a single file, since this is a pretty small application. You can run tests with:
+```shell script
+$ cd backend
+$ python tests.py
+```
 ## Other info
 The backend gets automatically new data for each category every 4-update time minutes. If it exceeds the 5 retries, it will use the old data until the next update. This is a considered decision. I decided to do it this way because when I followed the logs, this never happened. The frontend queries to the backend every 4 minutes.
